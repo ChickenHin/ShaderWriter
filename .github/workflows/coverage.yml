@@ -1,17 +1,7 @@
 name: Coverage
 
 on:
-  push:
-    branches:
-      - development
-      - master
-  pull_request:
-    branches:
-      - development
-      - master
-  release:
-    types:
-      - created
+  workflow_dispatch: 
 
 jobs:
   coverage-windows:
@@ -53,9 +43,9 @@ jobs:
       shell: bash
       run: |
         cmake --build . --parallel 2 --target ShaderWriterCoverage --config ${{ matrix.buildType }}
-    - name: Upload coverage reports to Codecov
-      if: (steps.coverage.conclusion == 'success')
-      uses: codecov/codecov-action@v4.0.1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ${{ github.workspace }}/doc/ShaderWriterCoverage.xml
+    # - name: Upload coverage reports to Codecov
+    #   if: (steps.coverage.conclusion == 'success')
+    #   uses: codecov/codecov-action@v4.0.1
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     file: ${{ github.workspace }}/doc/ShaderWriterCoverage.xml
